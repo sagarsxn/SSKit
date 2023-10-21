@@ -20,4 +20,8 @@ for f in all_functions
     end
 end
 
+# exports
+export freq, get_lagged_values, get_rowsum, @ndrop
+
+
 end
