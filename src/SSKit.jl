@@ -21,6 +21,6 @@ for f in all_functions
 end
 
 # exports
-export freq, get_lagged_values, get_rowsum, @ndrop, summarize, get_simple_binned_stats, plot_simple_binned_stats, get_residualized_xy, plot_binned_stats, verbose_innerjoin, verbose_leftjoin, verbose_outerjoin, get_coeftable
+export freq, get_lagged_values, get_rowsum, @ndrop, summarize, get_simple_binned_stats, plot_simple_binned_stats, get_residualized_xy, plot_binned_stats, verbose_innerjoin, verbose_leftjoin, verbose_outerjoin, get_coeftable, get_binned_stats
 
 end

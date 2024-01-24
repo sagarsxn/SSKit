@@ -1,3 +1,33 @@
+# function gives binned statistics for a vector of y variables and a
+# given x variable
+function get_binned_stats(
+    df_raw::DataFrame,
+    xvar::Symbol,
+    yvars::Vector{Symbol};
+    nbins::Int=100,
+    stat::Symbol=:mean,
+)
+
+    # get relevant vars
+    df = select(df_raw, xvar, yvars...)
+
+    # get bins
+    df.bin = levelcode.(cut(df[:, xvar], nbins; allowempty=true))
+
+    # get binned stats
+    if stat == :mean
+        df_stats = combine(groupby(df, :bin), [xvar, yvars...] .=> mean ∘ skipmissing; renamecols=false)
+    elseif stat == :median
+        df_stats = combine(groupby(df, :bin), [xvar, yvars...] .=> median ∘ skipmissing; renamecols=false)
+    end
+
+    # get percentiles
+    df_stats.pctile = df_stats.bin .* (100 / nbins)
+
+    return df_stats
+end
+
+
 # function computes binned stats for a scatter plot
 function get_simple_binned_stats(
     df_raw::DataFrame,
